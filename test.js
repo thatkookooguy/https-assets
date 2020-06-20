@@ -3,13 +3,11 @@
   let elementBeingDragged; // GLOBAL REFERENCE FOR ELEMENT BEING DRAGGED
   let startY, startHeight; // RESIZABLE DIV HELPERS
 
-  document.addEventListener('DOMContentLoaded', function () {
     console.log('dom is loaded');
     injectStyleToHeader();
     const diagramContainer = createDiagramBox();
     createTreeCopyRecursive(document.body, diagramContainer);
     document.body.appendChild(diagramContainer);
-  });
 
   function createDiagramBox() {
     const diagramBox = document.createElement('div');
