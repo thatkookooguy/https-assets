@@ -1,8 +1,10 @@
 (function createInlineDiagram() {
+  console.log('i am alived!');
   let elementBeingDragged; // GLOBAL REFERENCE FOR ELEMENT BEING DRAGGED
   let startY, startHeight; // RESIZABLE DIV HELPERS
 
   document.addEventListener('DOMContentLoaded', function () {
+    console.log('dom is loaded');
     injectStyleToHeader();
     const diagramContainer = createDiagramBox();
     createTreeCopyRecursive(document.body, diagramContainer);
