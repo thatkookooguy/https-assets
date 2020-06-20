@@ -246,7 +246,7 @@ margin: 0.1em;
 }
 
 .kb-hover {
-background: rgba(green, 0.2) !important;
+background: rgba(0, 255, 0, 0.2) !important;
 }
 `;
 
