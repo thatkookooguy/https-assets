@@ -23,9 +23,11 @@
   }
 
   function createTreeCopyRecursive(node, newParent) {
-    if (node.id === "kb-diagram" || node.nodeName === "SCRIPT") {
+    if (node.id === "kb-diagram") {
       return;
     }
+    
+    if (node.nodeName !== "SCRIPT") {
 
     const newElement = document.createElement("div");
     newElement.classList.add("kb-element-rep");
@@ -52,6 +54,8 @@
 
     if (node.children.length) {
       createTreeCopyRecursive(node.children[0], children);
+    }
+      
     }
 
     if (node.nextElementSibling) {
