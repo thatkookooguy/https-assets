@@ -1,10 +1,11 @@
 (function createInlineDiagram() {
   let elementBeingDragged; // GLOBAL REFERENCE FOR ELEMENT BEING DRAGGED
   let startY, startHeight; // RESIZABLE DIV HELPERS
-    injectStyleToHeader();
-    const diagramContainer = createDiagramBox();
-    createTreeCopyRecursive(document.body, diagramContainer);
-    document.body.appendChild(diagramContainer);
+
+  injectStyleToHeader();
+  const diagramContainer = createDiagramBox();
+  createTreeCopyRecursive(document.body, diagramContainer);
+  document.body.appendChild(diagramContainer);
 
   function createDiagramBox() {
     const diagramBox = document.createElement("div");
@@ -71,10 +72,10 @@
 
     function intToARGB(i) {
       var hex =
-        ((i >> 24) & 0xff).toString(16) +
-        ((i >> 16) & 0xff).toString(16) +
-        ((i >> 8) & 0xff).toString(16) +
-        (i & 0xff).toString(16);
+          ((i >> 24) & 0xff).toString(16) +
+          ((i >> 16) & 0xff).toString(16) +
+          ((i >> 8) & 0xff).toString(16) +
+          (i & 0xff).toString(16);
       hex += "000000";
       return hex.substring(0, 6);
     }
@@ -193,7 +194,7 @@
   }
 
   function doResize(e) {
-    box.style.height = startHeight - e.clientY + startY + "px";
+    diagramContainer.style.height = startHeight - e.clientY + startY + "px";
   }
 
   function stopResize(e) {
@@ -204,48 +205,48 @@
   function injectStyleToHeader() {
     const css = `
 #kb-diagram {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 300px;
-  z-index: 100;
-  background: lightgrey;
-  overflow-y: auto;
-  resize: vertical;
-  padding-top: 0.5em;
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+height: 300px;
+z-index: 100;
+background: lightgrey;
+overflow-y: auto;
+resize: vertical;
+padding-top: 0.5em;
 }
 
 .resizer {
-  height: 9px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  cursor: n-resize;
+height: 9px;
+position: absolute;
+left: 0;
+right: 0;
+top: 0;
+cursor: n-resize;
 }
 
 .kb-title {
-  pointer-events: none;
+pointer-events: none;
 }
 
 .children {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+display: flex;
+align-items: flex-start;
+flex-wrap: wrap;
 }
 
 .kb-element-rep {
-  border: 1px solid black;
-  display: inline-block;
-  padding: 0.5em;
-  min-width: 3em;
-  min-height: 3em;
-  margin: 0.1em;
+border: 1px solid black;
+display: inline-block;
+padding: 0.5em;
+min-width: 3em;
+min-height: 3em;
+margin: 0.1em;
 }
 
 .kb-hover {
-  background: rgba(green, 0.2) !important;
+background: rgba(green, 0.2) !important;
 }
 `;
 
