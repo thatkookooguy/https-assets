@@ -306,7 +306,7 @@ bottom: 0;
 left: 0;
 right: 0;
 height: 300px;
-z-index: 100;
+z-index: 100000;
 background: lightgrey;
 overflow-y: auto;
 resize: vertical;
