@@ -21,7 +21,7 @@
     const diagramBox = document.createElement('div');
     diagramBox.id = 'kb-diagram';
     const resizer = document.createElement('div');
-    resizer.className = 'resizer';
+    resizer.className = 'kb-resizer';
     diagramBox.appendChild(resizer);
 
     // EVENTS
@@ -314,7 +314,7 @@ resize: vertical;
 padding-top: 0.5em;
 }
 
-.resizer {
+#kb-diagram .kb-resizer {
 height: 9px;
 position: absolute;
 left: 0;
@@ -323,17 +323,17 @@ top: 0;
 cursor: n-resize;
 }
 
-.kb-title {
+#kb-diagram .kb-title {
 pointer-events: none;
 }
 
-.children {
+#kb-diagram .children {
 display: flex;
 align-items: flex-start;
 flex-wrap: wrap;
 }
 
-.kb-element-rep {
+#kb-diagram .kb-element-rep {
 border: 1px solid black;
 display: inline-block;
 padding: 0.5em;
