@@ -1,12 +1,13 @@
 (function createInlineDiagram() {
   let elementBeingDragged; // GLOBAL REFERENCE FOR ELEMENT BEING DRAGGED
+  let diagramContainer; // GLOBAL POINTER TO THE DIAGRAM
   let startY, startHeight; // RESIZABLE DIV HELPERS
 
   init();
 
   function init() {
     injectStyleToHeader();
-    const diagramContainer = createDiagramBox();
+    diagramContainer = createDiagramBox();
     createTreeCopyRecursive(document.body, diagramContainer);
     document.body.appendChild(diagramContainer);
   }
