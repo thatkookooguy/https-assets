@@ -1,8 +1,4 @@
-const sheet = new CSSStyleSheet();
-
-// replace all styles synchronously:
-sheet.replaceSync('ha-card { color: red; }');
-
-console.log('trying to create style!!!');
-
-document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+setTimeout(() => {
+  const haCard = customElements.get('ha-card');
+  hello._styles[0].styleSheet.addRule(':host', 'color: pink !important;', 0)
+}, 1000);
