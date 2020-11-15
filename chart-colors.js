@@ -1,30 +1,12 @@
-// Add this to your lovelace resources as
-// url: /local/chart-colors.js
-// type: module
-
-customElements.whenDefined('ha-chart-base').then(() => {
-
-  // Find the HaChartBase class
-  const HaChartBase = customElements.get('ha-chart-base');
-
-  // Write a new color list generator
-  function getColorList(cnt) {
-    let retval = [];
-    // This one just makes a list of all magenta
-    while(cnt--)
-      retval.push(Color().rgb(255, 56, 96));
-    return retval;
-  }
-  
 function getColorGenerator(t, e) {
   const i = [
     "FF3860",
-    "66a61e",
-    "377eb8",
-    "984ea3",
+    "48C774",
+    "209CEE",
+    "9b59b6",
     "00d2d5",
-    "ff7f00",
-    "af8d00",
+    "e67e22",
+    "f1c40f",
     "7f80cd",
     "b3e900",
     "c42e60",
@@ -106,29 +88,3 @@ function getColorGenerator(t, e) {
     }
   );
 }
-
-
-  // Replace the color list generator in the base class
-  HaChartBase.getColorGenerator = getColorGenerator;
-  HaChartBase.getColorList = getColorList;
-
-  // Force lovelace to redraw everything
-  const  ev = new Event("ll-rebuild", {
-      bubbles: true,
-      cancelable: false,
-      composed: true,
-  });
-  var root = document.querySelector("home-assistant");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("home-assistant-main");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
-  root = root && root.shadowRoot || root;
-  root = root && root.querySelector("ha-panel-lovelace");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("hui-root");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("ha-app-layout #view");
-  root = root && root.firstElementChild;
-  if (root) root.dispatchEvent(ev);
-});
