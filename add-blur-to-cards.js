@@ -3,6 +3,6 @@ setTimeout(() => {
   const haInfoDialog = customElements.get('ha-dialog');
   haCard._styles[0].styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
   if (haInfoDialog && haInfoDialog._styles) {
-    haInfoDialog._styles[0].styleSheet.addRule(':host #content', 'backdrop-filter: blur(5px)', 0);
+    haInfoDialog._styles[0].styleSheet.addRule('.mdc-dialog .mdc-dialog__content', 'backdrop-filter: blur(5px)', 0);
   }
 }, 1000);
