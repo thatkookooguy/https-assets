@@ -12,7 +12,7 @@ customElements.whenDefined('ha-chart-base').then(() => {
     let retval = [];
     // This one just makes a list of all magenta
     while(cnt--)
-      retval.push(Color().rgb(255,0,255));
+      retval.push(Color().rgb(255, 56, 96));
     return retval;
   }
 
