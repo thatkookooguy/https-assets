@@ -8,47 +8,55 @@
 //   }
 // }, 2000);
 
-customElements.whenDefined('ha-dialog').then(() => {
-  const haDialog = customElements.get('ha-dialog');
-  const style = getLastStyle(haDialog);
+Promise.resolve()
+  .then(() => customElements.whenDefined("ha-card"))
+  .then(() => {
+    // Find the HaChartBase class
+    const haCard = customElements.get("ha-card");
 
-  console.log('found dialog card. injecting style to stylesheet 2!!!');
+    const style = getLastStyle(haCard);
 
-  style.styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
-});
+    style.styleSheet.addRule(":host", "backdrop-filter: blur(5px)", 0);
+  })
+  .then(() => customElements.whenDefined("ha-dialog"))
+  .then(() => {
+    const haDialog = customElements.get("ha-dialog");
+    const style = getLastStyle(haDialog);
 
-customElements.whenDefined('ha-card').then(() => {
+    console.log("found dialog card. injecting style to stylesheet 2!!!");
 
-  // Find the HaChartBase class
-  const haCard = customElements.get('ha-card');
-
-  const style = getLastStyle(haCard);
-
-    style.styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
-
-  // Force lovelace to redraw everything
-  const  ev = new Event("ll-rebuild", {
+    style.styleSheet.addRule(
+      ".mdc-dialog__surface",
+      "backdrop-filter: blur(5px)",
+      0
+    );
+  })
+  .then(() => {
+    // Force lovelace to redraw everything
+    const ev = new Event("ll-rebuild", {
       bubbles: true,
       cancelable: false,
       composed: true,
+    });
+
+    let root = document.querySelector("home-assistant");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("home-assistant-main");
+    root = root && root.shadowRoot;
+    root =
+      root && root.querySelector("app-drawer-layout partial-panel-resolver");
+    root = (root && root.shadowRoot) || root;
+    root = root && root.querySelector("ha-panel-lovelace");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("hui-root");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("ha-app-layout #view");
+    root = root && root.firstElementChild;
+    if (root) root.dispatchEvent(ev);
   });
 
-  let root = document.querySelector("home-assistant");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("home-assistant-main");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
-  root = root && root.shadowRoot || root;
-  root = root && root.querySelector("ha-panel-lovelace");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("hui-root");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("ha-app-layout #view");
-  root = root && root.firstElementChild;
-  if (root) root.dispatchEvent(ev);
-});
-
 function getLastStyle(card) {
-  return Array.isArray(card.getStyles()) ?
-    card.getStyles()[card.getStyles().length - 1] : card.getStyles();
+  return Array.isArray(card.getStyles())
+    ? card.getStyles()[card.getStyles().length - 1]
+    : card.getStyles();
 }
