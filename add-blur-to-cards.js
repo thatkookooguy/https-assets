@@ -25,7 +25,7 @@ Promise.resolve()
 
     console.log("found dialog card. injecting style to stylesheet 2!!!");
 
-    style.styleSheet.addRule(
+    haDialog._styles[1].styleSheet.addRule(
       ".mdc-dialog__surface",
       "backdrop-filter: blur(5px)",
       0
@@ -59,4 +59,8 @@ function getLastStyle(card) {
   return Array.isArray(card.getStyles())
     ? card.getStyles()[card.getStyles().length - 1]
     : card.getStyles();
+}
+
+function waitP(timeout) {
+  return new Promise((resolve) => setTimeout(() => resolve(), timeout || 1000));
 }
