@@ -63,14 +63,11 @@ function addStyle() {
 
     console.log("found dialog card. injecting style to stylesheet 2!!!");
 
-    if (!haDialog.__styles || !haDialog.__styles[1]) {
+    if (!haDialog.getStyles() || !haDialog.getStyles()[0]) {
+      console.log('waiting!');
       return waitP().then(() => addStyle());
     }
 
-    haDialog._styles[1].styleSheet.addRule(
-      ".mdc-dialog__surface",
-      "backdrop-filter: blur(5px)",
-      0
-    );
+    haDialog.getStyles()[0].styleSheet.insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
   })
 }
