@@ -52,10 +52,12 @@ function insertStyleRule(card, rule) {
     ? card.getStyles()[0].styleSheet
     : card.getStyles().styleSheet;
 
-  const oldWay = card._styles[0].styleSheet;
+  const oldWay = card._styles && card._styles[0] && card._styles[0].styleSheet;
 
   newWay.insertRule(rule);
-  oldWay.insertRule(rule, 0);
+  if (oldWay && oldWay.insertRule) {
+    oldWay.insertRule(rule, 0);
+  }
 }
 
 function waitP(timeout) {
