@@ -59,6 +59,8 @@ function addStyle() {
   .then(() => {
   const haDialog = customElements.get("ha-dialog");
 
+  console.log(haDialog.styles);
+
     console.log("found dialog card. injecting style to stylesheet 2!!!");
 
     if (!haDialog.__styles || !haDialog.__styles[1]) {
