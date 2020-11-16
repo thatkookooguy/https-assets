@@ -13,12 +13,12 @@ Promise.resolve()
   .then(() => {
     // Find the HaChartBase class
     const haCard = customElements.get("ha-card");
-    haCard.getStyles()[0].styleSheet.insertRule(":host { backdrop-filter: blur(5px) }");
+    getFistStyle(haCard).insertRule(":host { backdrop-filter: blur(5px) }");
   })
   .then(() => customElements.whenDefined("ha-dialog"))
   .then(() => {
     const haDialog = customElements.get("ha-dialog");
-    haDialog.getStyles()[0].styleSheet.insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
+    getFistStyle(haDialog).insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
   })
   // .then(() => addStyle())
   .then(() => {
@@ -47,8 +47,8 @@ Promise.resolve()
 
 function getFistStyle(card) {
   return Array.isArray(card.getStyles())
-    ? card.getStyles()[0]
-    : card.getStyles();
+    ? card.getStyles()[0].styleSheet
+    : card.getStyles().styleSheet;
 }
 
 function waitP(timeout) {
