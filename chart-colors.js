@@ -76,7 +76,7 @@ customElements.whenDefined('ha-chart-base').then(() => {
     // Add colors over and over until we have a sufficient array size
     while(cnt--) {
       retval = [
-        retval,
+        ...retval,
         ...mappedColors
       ];
     }
