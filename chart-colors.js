@@ -1,7 +1,3 @@
-// Add this to your lovelace resources as
-// url: /local/chart-colors.js
-// type: module
-
 const COLOR_SET = [
   "FF3860",
   "48C774",
@@ -65,81 +61,77 @@ const COLOR_SET = [
 ];
 
 Promise.resolve()
-.then(() => customElements.whenDefined('ha-chart-base'))
-.then(() => {
-  const HaChartBase = customElements.get('ha-chart-base');
+  .then(() => customElements.whenDefined("ha-chart-base"))
+  .then(() => {
+    const HaChartBase = customElements.get("ha-chart-base");
 
-  // Write a new color list generator (handles graphs)
-  function getColorList(cnt) {
-    const mappedColors = COLOR_SET.map((color) => Color(`#${ color }`));
-    let retval = [];
-    // Add colors over and over until we have a sufficient array size
-    while(cnt--) {
-      retval = [
-        ...retval,
-        ...mappedColors
-      ];
+    // Write a new color list generator (handles graphs)
+    function getColorList(cnt) {
+      const mappedColors = COLOR_SET.map((color) => Color(`#${color}`));
+      let retval = [];
+      // Add colors over and over until we have a sufficient array size
+      while (cnt--) {
+        retval = [...retval, ...mappedColors];
+      }
+
+      return retval;
     }
 
-    return retval;
-  }
-
-  // same for this one (handles bars)
-function getColorGenerator(t, e) {
-  const i = COLOR_SET;
-  function a(t) {
-    return Color("#" + i[t % i.length]);
-  }
-  const s = {};
-  let n = 0;
-  return (
-    e > 0 && (n = e),
-    t &&
-      Object.keys(t).forEach((e) => {
-        const i = t[e];
-        isFinite(i)
-          ? (s[e.toLowerCase()] = a(i))
-          : (s[e.toLowerCase()] = Color(t[e]));
-      }),
-    function (t, e) {
-      let i;
-      const r = e[3];
-      if (null === r) return Color().hsl(0, 40, 38);
-      if (void 0 === r) return Color().hsl(120, 40, 38);
-      const o = r.toLowerCase();
+    // same for this one (handles bars)
+    function getColorGenerator(t, e) {
+      const i = COLOR_SET;
+      function a(t) {
+        return Color("#" + i[t % i.length]);
+      }
+      const s = {};
+      let n = 0;
       return (
-        void 0 === i && (i = s[o]),
-        void 0 === i && ((i = a(n)), n++, (s[o] = i)),
-        i
+        e > 0 && (n = e),
+        t &&
+          Object.keys(t).forEach((e) => {
+            const i = t[e];
+            isFinite(i)
+              ? (s[e.toLowerCase()] = a(i))
+              : (s[e.toLowerCase()] = Color(t[e]));
+          }),
+        function (t, e) {
+          let i;
+          const r = e[3];
+          if (null === r) return Color().hsl(0, 40, 38);
+          if (void 0 === r) return Color().hsl(120, 40, 38);
+          const o = r.toLowerCase();
+          return (
+            void 0 === i && (i = s[o]),
+            void 0 === i && ((i = a(n)), n++, (s[o] = i)),
+            i
+          );
+        }
       );
     }
-  );
-}
 
-
-  // Replace the color list generator in the base class
-  HaChartBase.getColorGenerator = getColorGenerator;
-  HaChartBase.getColorList = getColorList;
-})
-.then(() => {
-
-  // Force lovelace to redraw everything
-  const  ev = new Event("ll-rebuild", {
+    // Replace the color list generator in the base class
+    HaChartBase.getColorGenerator = getColorGenerator;
+    HaChartBase.getColorList = getColorList;
+  })
+  .then(() => {
+    // Force lovelace to redraw everything
+    const ev = new Event("ll-rebuild", {
       bubbles: true,
       cancelable: false,
       composed: true,
+    });
+    var root = document.querySelector("home-assistant");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("home-assistant-main");
+    root = root && root.shadowRoot;
+    root =
+      root && root.querySelector("app-drawer-layout partial-panel-resolver");
+    root = (root && root.shadowRoot) || root;
+    root = root && root.querySelector("ha-panel-lovelace");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("hui-root");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("ha-app-layout #view");
+    root = root && root.firstElementChild;
+    if (root) root.dispatchEvent(ev);
   });
-  var root = document.querySelector("home-assistant");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("home-assistant-main");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
-  root = root && root.shadowRoot || root;
-  root = root && root.querySelector("ha-panel-lovelace");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("hui-root");
-  root = root && root.shadowRoot;
-  root = root && root.querySelector("ha-app-layout #view");
-  root = root && root.firstElementChild;
-  if (root) root.dispatchEvent(ev);
-});
