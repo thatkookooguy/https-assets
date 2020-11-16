@@ -13,7 +13,7 @@ customElements.whenDefined('ha-dialog').then(() => {
 
   console.log('found dialog card. injecting style to stylesheet 2!!!');
 
-  haDialog._styles[haDialog._styles.length - 1].styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
+  haDialog.getStyles()[haDialog.getStyles().length - 1].styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
 });
 
 customElements.whenDefined('ha-card').then(() => {
@@ -21,7 +21,7 @@ customElements.whenDefined('ha-card').then(() => {
   // Find the HaChartBase class
   const haCard = customElements.get('ha-card');
 
-  haCard._styles[0].styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
+  haCard.getStyles()[haCard.getStyles().length - 1].styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
 
   // Force lovelace to redraw everything
   const  ev = new Event("ll-rebuild", {
