@@ -13,7 +13,7 @@ Promise.resolve()
   .then(() => {
     // Find the HaChartBase class
     const haCard = customElements.get("ha-card");
-    getFistStyle(haCard).insertRule(":host { backdrop-filter: blur(5px) }");
+    haCard._styles[0].styleSheet.insertRule(":host { backdrop-filter: blur(5px) }", 0);
   })
   .then(() => customElements.whenDefined("ha-dialog"))
   .then(() => {
