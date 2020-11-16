@@ -1,7 +1,6 @@
 const cardMods = new Map();
 cardMods.set('ha-card', ':host { backdrop-filter: blur(5px) }');
-cardMods.set('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
-
+cardMods.set('ha-dialog', '.mdc-dialog__surface { backdrop-filter: blur(5px); }');
 
 const injectPromises = Array.from( cardMods ).map(([cardName, cssRule]) => addCssToCard(cardName, cssRule));
 
