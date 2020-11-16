@@ -13,12 +13,14 @@ Promise.resolve()
   .then(() => {
     // Find the HaChartBase class
     const haCard = customElements.get("ha-card");
-    haCard._styles[0].styleSheet.insertRule(":host { backdrop-filter: blur(5px) }", 0);
+    insertStyleRule(haCard, ':host { backdrop-filter: blur(5px) }');
+    // haCard._styles[0].styleSheet.insertRule(":host { backdrop-filter: blur(5px) }", 0);
   })
   .then(() => customElements.whenDefined("ha-dialog"))
   .then(() => {
     const haDialog = customElements.get("ha-dialog");
-    getFistStyle(haDialog).insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
+    insertStyleRule(haDialog, '.mdc-dialog__surface { backdrop-filter: blur(5px); }');
+    // getFistStyle(haDialog).insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
   })
   // .then(() => addStyle())
   .then(() => {
@@ -45,10 +47,15 @@ Promise.resolve()
     if (root) root.dispatchEvent(ev);
   });
 
-function getFistStyle(card) {
-  return Array.isArray(card.getStyles())
+function insertStyleRule(card, rule) {
+  const newWay = Array.isArray(card.getStyles())
     ? card.getStyles()[0].styleSheet
     : card.getStyles().styleSheet;
+
+  const oldWay = card._styles[0].styleSheet;
+
+  newWay.insertRule(rule);
+  oldWay.insertRule(rule, 0);
 }
 
 function waitP(timeout) {
