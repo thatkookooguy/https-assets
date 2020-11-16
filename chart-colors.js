@@ -64,12 +64,12 @@ const COLOR_SET = [
   "a04a9b",
 ];
 
-customElements.whenDefined('ha-chart-base').then(() => {
-
-  // Find the HaChartBase class
+Promise.resolve()
+.then(() => customElements.whenDefined('ha-chart-base'))
+.then(() => {
   const HaChartBase = customElements.get('ha-chart-base');
 
-  // Write a new color list generator
+  // Write a new color list generator (handles graphs)
   function getColorList(cnt) {
     const mappedColors = COLOR_SET.map((color) => Color(`#${ color }`));
     let retval = [];
@@ -83,7 +83,8 @@ customElements.whenDefined('ha-chart-base').then(() => {
 
     return retval;
   }
-  
+
+  // same for this one (handles bars)
 function getColorGenerator(t, e) {
   const i = COLOR_SET;
   function a(t) {
@@ -119,6 +120,8 @@ function getColorGenerator(t, e) {
   // Replace the color list generator in the base class
   HaChartBase.getColorGenerator = getColorGenerator;
   HaChartBase.getColorList = getColorList;
+})
+.then(() => {
 
   // Force lovelace to redraw everything
   const  ev = new Event("ll-rebuild", {
