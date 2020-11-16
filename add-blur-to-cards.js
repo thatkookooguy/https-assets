@@ -19,19 +19,7 @@ Promise.resolve()
     haCard._styles[0].styleSheet.addRule(":host", "backdrop-filter: blur(5px)", 0);
   })
   .then(() => customElements.whenDefined("ha-dialog"))
-  .then(() => waitP())
-  .then(() => {
-    const haDialog = customElements.get("ha-dialog");
-    const style = getLastStyle(haDialog);
-
-    console.log("found dialog card. injecting style to stylesheet 2!!!");
-
-    haDialog._styles[1].styleSheet.addRule(
-      ".mdc-dialog__surface",
-      "backdrop-filter: blur(5px)",
-      0
-    );
-  })
+  .then(() => addStyle())
   .then(() => {
     // Force lovelace to redraw everything
     const ev = new Event("ll-rebuild", {
@@ -64,4 +52,23 @@ function getLastStyle(card) {
 
 function waitP(timeout) {
   return new Promise((resolve) => setTimeout(() => resolve(), timeout || 1000));
+}
+
+function addStyle() {
+  return Promise.resolve()
+  .then(() => {
+  const haDialog = customElements.get("ha-dialog");
+
+    console.log("found dialog card. injecting style to stylesheet 2!!!");
+
+    if (!haDialog.__styles || !haDialog.__styles[1]) {
+      return waitP().then(() => addStyle());
+    }
+
+    haDialog._styles[1].styleSheet.addRule(
+      ".mdc-dialog__surface",
+      "backdrop-filter: blur(5px)",
+      0
+    );
+  })
 }
