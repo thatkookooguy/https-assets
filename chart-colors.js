@@ -2,6 +2,68 @@
 // url: /local/chart-colors.js
 // type: module
 
+const COLOR_SET = [
+  "FF3860",
+  "48C774",
+  "209CEE",
+  "9b59b6",
+  "00d2d5",
+  "e67e22",
+  "f1c40f",
+  "7f80cd",
+  "b3e900",
+  "c42e60",
+  "a65628",
+  "f781bf",
+  "8dd3c7",
+  "bebada",
+  "fb8072",
+  "80b1d3",
+  "fdb462",
+  "fccde5",
+  "bc80bd",
+  "ffed6f",
+  "c4eaff",
+  "cf8c00",
+  "1b9e77",
+  "d95f02",
+  "e7298a",
+  "e6ab02",
+  "a6761d",
+  "0097ff",
+  "00d067",
+  "f43600",
+  "4ba93b",
+  "5779bb",
+  "927acc",
+  "97ee3f",
+  "bf3947",
+  "9f5b00",
+  "f48758",
+  "8caed6",
+  "f2b94f",
+  "eff26e",
+  "e43872",
+  "d9b100",
+  "9d7a00",
+  "698cff",
+  "d9d9d9",
+  "00d27e",
+  "d06800",
+  "009f82",
+  "c49200",
+  "cbe8ff",
+  "fecddf",
+  "c27eb6",
+  "8cd2ce",
+  "c4b8d9",
+  "f883b0",
+  "a49100",
+  "f48800",
+  "27d0df",
+  "a04a9b",
+];
+
 customElements.whenDefined('ha-chart-base').then(() => {
 
   // Find the HaChartBase class
@@ -10,74 +72,19 @@ customElements.whenDefined('ha-chart-base').then(() => {
   // Write a new color list generator
   function getColorList(cnt) {
     let retval = [];
-    // This one just makes a list of all magenta
-    while(cnt--)
-      retval.push(Color().rgb(255, 56, 96));
+    // Add colors over and over until we have a sufficient array size
+    while(cnt--) {
+      retval = [
+        retval,
+        ...COLOR_SET
+      ];
+    }
+
     return retval;
   }
   
 function getColorGenerator(t, e) {
-  const i = [
-    "FF3860",
-    "48C774",
-    "209CEE",
-    "9b59b6",
-    "00d2d5",
-    "e67e22",
-    "f1c40f",
-    "7f80cd",
-    "b3e900",
-    "c42e60",
-    "a65628",
-    "f781bf",
-    "8dd3c7",
-    "bebada",
-    "fb8072",
-    "80b1d3",
-    "fdb462",
-    "fccde5",
-    "bc80bd",
-    "ffed6f",
-    "c4eaff",
-    "cf8c00",
-    "1b9e77",
-    "d95f02",
-    "e7298a",
-    "e6ab02",
-    "a6761d",
-    "0097ff",
-    "00d067",
-    "f43600",
-    "4ba93b",
-    "5779bb",
-    "927acc",
-    "97ee3f",
-    "bf3947",
-    "9f5b00",
-    "f48758",
-    "8caed6",
-    "f2b94f",
-    "eff26e",
-    "e43872",
-    "d9b100",
-    "9d7a00",
-    "698cff",
-    "d9d9d9",
-    "00d27e",
-    "d06800",
-    "009f82",
-    "c49200",
-    "cbe8ff",
-    "fecddf",
-    "c27eb6",
-    "8cd2ce",
-    "c4b8d9",
-    "f883b0",
-    "a49100",
-    "f48800",
-    "27d0df",
-    "a04a9b",
-  ];
+  const i = COLOR_SET;
   function a(t) {
     return Color("#" + i[t % i.length]);
   }
@@ -110,7 +117,7 @@ function getColorGenerator(t, e) {
 
   // Replace the color list generator in the base class
   HaChartBase.getColorGenerator = getColorGenerator;
-  // HaChartBase.getColorList = getColorList;
+  HaChartBase.getColorList = getColorList;
 
   // Force lovelace to redraw everything
   const  ev = new Event("ll-rebuild", {
