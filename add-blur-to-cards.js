@@ -10,10 +10,11 @@
 
 customElements.whenDefined('ha-dialog').then(() => {
   const haDialog = customElements.get('ha-dialog');
+  const style = getLastStyle(haDialog);
 
   console.log('found dialog card. injecting style to stylesheet 2!!!');
 
-  haDialog.getStyles()[haDialog.getStyles().length - 1].styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
+  style.styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
 });
 
 customElements.whenDefined('ha-card').then(() => {
@@ -21,7 +22,9 @@ customElements.whenDefined('ha-card').then(() => {
   // Find the HaChartBase class
   const haCard = customElements.get('ha-card');
 
-  haCard.getStyles()[haCard.getStyles().length - 1].styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
+  const style = getLastStyle(haCard);
+
+    style.styleSheet.addRule(':host', 'backdrop-filter: blur(5px)', 0);
 
   // Force lovelace to redraw everything
   const  ev = new Event("ll-rebuild", {
@@ -44,3 +47,8 @@ customElements.whenDefined('ha-card').then(() => {
   root = root && root.firstElementChild;
   if (root) root.dispatchEvent(ev);
 });
+
+function getLastStyle(card) {
+  return Array.isArray(card.getStyles()) ?
+    card.getStyles()[card.getStyles().length - 1] : card.getStyles();
+}
