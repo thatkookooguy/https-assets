@@ -19,6 +19,7 @@ Promise.resolve()
     haCard._styles[0].styleSheet.addRule(":host", "backdrop-filter: blur(5px)", 0);
   })
   .then(() => customElements.whenDefined("ha-dialog"))
+  .then(() => waitP())
   .then(() => {
     const haDialog = customElements.get("ha-dialog");
     const style = getLastStyle(haDialog);
