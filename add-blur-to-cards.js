@@ -13,13 +13,14 @@ Promise.resolve()
   .then(() => {
     // Find the HaChartBase class
     const haCard = customElements.get("ha-card");
-
-    const style = getLastStyle(haCard);
-
-    haCard._styles[0].styleSheet.addRule(":host", "backdrop-filter: blur(5px)", 0);
+    haCard.getStyles()[0].styleSheet.insertRule(":host { backdrop-filter: blur(5px) }");
   })
   .then(() => customElements.whenDefined("ha-dialog"))
-  .then(() => addStyle())
+  .then(() => {
+    const haDialog = customElements.get("ha-dialog");
+    haDialog.getStyles()[0].styleSheet.insertRule('.mdc-dialog__surface { backdrop-filter: blur(5px); }');
+  })
+  // .then(() => addStyle())
   .then(() => {
     // Force lovelace to redraw everything
     const ev = new Event("ll-rebuild", {
@@ -44,9 +45,9 @@ Promise.resolve()
     if (root) root.dispatchEvent(ev);
   });
 
-function getLastStyle(card) {
+function getFistStyle(card) {
   return Array.isArray(card.getStyles())
-    ? card.getStyles()[card.getStyles().length - 1]
+    ? card.getStyles()[0]
     : card.getStyles();
 }
 
