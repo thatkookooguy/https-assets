@@ -110,7 +110,7 @@ function getColorGenerator(t, e) {
 
   // Replace the color list generator in the base class
   HaChartBase.getColorGenerator = getColorGenerator;
-  HaChartBase.getColorList = getColorList;
+  // HaChartBase.getColorList = getColorList;
 
   // Force lovelace to redraw everything
   const  ev = new Event("ll-rebuild", {
