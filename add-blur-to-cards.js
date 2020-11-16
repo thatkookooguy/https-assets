@@ -8,6 +8,14 @@
 //   }
 // }, 2000);
 
+customElements.whenDefined('ha-dialog').then(() => {
+  const haDialog = customElements.get('ha-dialog');
+
+  console.log('found dialog card. injecting style to stylesheet 2!!!');
+
+  haDialog._styles[haDialog._styles.length - 1].styleSheet.addRule('.mdc-dialog__surface', 'backdrop-filter: blur(5px)', 0);
+});
+
 customElements.whenDefined('ha-card').then(() => {
 
   // Find the HaChartBase class
