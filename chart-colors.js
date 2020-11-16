@@ -71,12 +71,13 @@ customElements.whenDefined('ha-chart-base').then(() => {
 
   // Write a new color list generator
   function getColorList(cnt) {
+    const mappedColors = COLOR_SET.map((color) => Color(`#${ color }`));
     let retval = [];
     // Add colors over and over until we have a sufficient array size
     while(cnt--) {
       retval = [
         retval,
-        ...COLOR_SET
+        ...mappedColors
       ];
     }
 
